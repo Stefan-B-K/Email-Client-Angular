@@ -1,0 +1,51 @@
+<div class="ui segment ">
+    <h3 class="title">Create an Account</h3>
+
+    <form
+        [formGroup]="signUpForm"
+        (ngSubmit)="submitForm()"
+        class="ui form">
+
+        <app-input
+            label="Username"
+            [control]="signUpForm.controls.username"
+            type="text"
+        ></app-input>
+
+        <app-input
+            label="Password"
+            [control]="signUpForm.controls.password"
+            type="password"
+        ></app-input>
+
+        <app-input
+            label="Confirm Password"
+            [control]="signUpForm.controls.passwordConfirmation"
+            type="password"
+        ></app-input>
+
+        <div *ngIf="signUpForm.controls.password.touched &&
+                            signUpForm.controls.passwordConfirmation.touched &&
+                            signUpForm.errors"
+             class="ui red basic label"
+        >
+            <p *ngIf="signUpForm.errors['passwordsDontMatch']">
+                Passwords don't match
+            </p>
+
+            <p *ngIf="signUpForm.errors['noConnection']">
+                No internet connection, failed to sign up!
+            </p>
+
+            <p *ngIf="signUpForm.errors['serverError']">
+                Server error, failed to sign up!
+            </p>
+        </div>
+
+        <button
+            [ngClass]="{ disabled: signUpForm.invalid}"
+            class="ui submit button primary"
+        >Submit</button>
+
+    </form>
+</div>

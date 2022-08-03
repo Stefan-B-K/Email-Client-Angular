@@ -1,0 +1,32 @@
+<div class="field">
+    <label>{{ label }}</label>
+    <input [formControl]="control" [type]="type"/>
+
+    <div *ngIf="showErrors" class="ui pointing red basic label">
+
+        <p *ngIf="control.errors!['required']">
+            Value is required
+        </p>
+
+        <p *ngIf="control.errors!['minlength']">
+            Minimum  {{ control.errors!['minlength'].requiredLength }} characters
+        </p>
+
+        <p *ngIf="control.errors!['maxlength']">
+            Maximum  {{ control.errors!['maxlength'].requiredLength }} characters
+        </p>
+
+        <p *ngIf="control.errors!['pattern']">
+            Allowed: a-z, A-Z, 0-9 _ - .
+        </p>
+
+        <p *ngIf="control.errors!['usernameInUse']">
+            Username is taken.
+        </p>
+
+        <p *ngIf="control.errors!['connectionError']">
+            Connection error! Can't check username availability.
+        </p>
+
+    </div>
+</div>

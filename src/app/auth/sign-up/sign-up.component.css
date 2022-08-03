@@ -1,0 +1,13 @@
+.basic.label,
+.button {
+    margin: 5px auto;
+}
+
+.button {
+    display: block;
+    margin-left: 0;
+}
+
+.ui.segment {
+    margin: 20px;
+}
