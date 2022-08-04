@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
+import { BehaviorSubject, tap } from "rxjs";
 
 type UsernameInUseResponse = { available: boolean }
 export type SignUpInfo = {
@@ -8,6 +9,10 @@ export type SignUpInfo = {
     passwordConfirmation: string
 }
 type SIgnUpResponse = { username: string }
+type SignedInResponse = {
+    authenticated: boolean,
+    username: string
+}
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -19,6 +24,8 @@ export class AuthService {
     private checkUsernameUrl = this.rootUrl + 'username'
     private checkSignedUrl = this.rootUrl + 'signedin'
 
+    signedIn$ = new BehaviorSubject(false)
+
     constructor (private http: HttpClient) {}
 
     usernameInUse (username: string) {
@@ -27,6 +34,16 @@ export class AuthService {
 
     signUp (user: SignUpInfo) {
         return this.http.post<SIgnUpResponse>(this.signupUrl, user)
+            .pipe(
+                tap(() => this.signedIn$.next(true))
+            )
+    }
+
+    checkSigned() {
+        return this.http.get<SignedInResponse>(this.checkSignedUrl,)
+            .pipe(
+                tap(({ authenticated }) => this.signedIn$.next(authenticated))
+            )
     }
 
 }

@@ -1,16 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 import { MatchPassword } from "../validators/match-password";
 import { UniqueUsername } from "../validators/unique-username";
 import { AuthService, SignUpInfo } from "../auth.service";
+import { Subscription } from "rxjs";
 
 @Component({
     selector: 'app-sign-up',
     templateUrl: './sign-up.component.html',
     styleUrls: ['./sign-up.component.css']
 })
-export class SignUpComponent {
+export class SignUpComponent implements OnDestroy {
+    sub!: Subscription
 
     signUpForm = new FormGroup({
         username: new FormControl(
@@ -43,10 +45,10 @@ export class SignUpComponent {
 
     submitForm () {
         if (this.signUpForm.invalid) return
-        this.authService.signUp(this.signUpForm.value as SignUpInfo)
+        this.sub = this.authService.signUp(this.signUpForm.value as SignUpInfo)
             .subscribe({
                 next: response => {
-                   // navigate to emails
+                    // navigate to emails
                 },
                 error: err => {
                     if (!err.status) {
@@ -56,6 +58,10 @@ export class SignUpComponent {
                     }
                 }
             })
+    }
+
+    ngOnDestroy () {
+        if (this.sub) this.sub.unsubscribe()
     }
 
 }
