@@ -1,0 +1,8 @@
+.spinner {
+    position: absolute;
+    top: 100px;
+    left: 45%;
+    transform: scale(1.5);
+    color: #006400;
+}
+

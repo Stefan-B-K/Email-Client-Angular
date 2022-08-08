@@ -1,11 +1,25 @@
 <div class="field">
-    <label>{{ label }}</label>
-    <input [formControl]="control" [type]="type"/>
+    <label style="color: #006400">{{ label }}</label>
+    <input *ngIf="type !== 'textarea'; else ngElse"
+           [formControl]="control"
+           [type]="type"
+           style="color: #006400;"/>
+    <ng-template #ngElse>
+        <textarea
+            [formControl]="control"
+            style="color: #006400;"
+            [rows]=rows
+        ></textarea>
+    </ng-template>
 
     <div *ngIf="showErrors" class="ui pointing red basic label">
 
         <p *ngIf="control.errors!['required']">
             Value is required
+        </p>
+
+        <p *ngIf="control.errors!['email']">
+            Invalid email format
         </p>
 
         <p *ngIf="control.errors!['minlength']">

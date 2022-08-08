@@ -1,0 +1,22 @@
+.info, .icon.outline {
+    color: #007800;
+}
+
+.icon.outline {
+    position: absolute;
+    left: 44%;
+    font-size: xxx-large;
+}
+
+app-spinner {
+    position: absolute;
+    top: 20%;
+    left: 42%;
+    margin-top: 90px;
+    transform: scale(0.8);
+}
+
+.info {
+    margin-top: 50px;
+    text-align: center;
+}

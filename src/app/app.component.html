@@ -1,25 +1,42 @@
-<div class="ui container">
-    <div class="ui secondary pointing menu">
-        <a routerLink="/" class="item">Angular Email</a>
+<app-spinner *ngIf="signedIn$.value === null; else ngElse"></app-spinner>
+<ng-template #ngElse>
+    <div class="ui container">
+        <div class="ui secondary pointing menu">
+            <a [routerLink]="pages.root" class="item" style="color: #006400;">Angular Email</a>
 
-        <div class="right menu">
-            <ng-container *ngIf="signedIn$ | async; else ngElse">
-                <a routerLink="/inbox" class="ui item">Inbox</a>
-                <a routerLink="/signout" class="ui item">Sign Out</a>
-            </ng-container>
-            <ng-template #ngElse>
-                <a
-                    routerLink="/"
-                    [routerLinkActiveOptions]="{ exact: true }"
-                    routerLinkActive="active"
-                    class="ui item"
-                >Sign In</a>
-                <a routerLink="/signup" routerLinkActive="active" class="ui item">Sign Up</a>
-            </ng-template>
+            <div class="right menu">
+                <ng-container *ngIf="signedIn$ | async; else ngElse">
+                    <a
+                        [routerLink]="pages.inbox"
+                        routerLinkActive="active"
+                        class="ui item"
+                        style="color: #006400;"
+                    >Inbox</a>
+                    <a
+                        [routerLink]="pages.signOut"
+                        class="ui item"
+                        style="color: #006400;"
+                    >Sign Out</a>
+                </ng-container>
+                <ng-template #ngElse>
+                    <a
+                        [routerLink]="pages.signIn"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        routerLinkActive="active"
+                        class="ui item"
+                        style="color: #006400;"
+                    >Sign In</a>
+                    <a
+                        [routerLink]="pages.signUp"
+                        routerLinkActive="active"
+                        class="ui item"
+                        style="color: #006400;">Sign Up</a>
+                </ng-template>
+            </div>
+
         </div>
 
+
+        <router-outlet></router-outlet>
     </div>
-
-
-    <router-outlet></router-outlet>
-</div>
+</ng-template>

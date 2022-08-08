@@ -2,13 +2,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { BehaviorSubject, tap } from "rxjs";
 
-type UsernameInUseResponse = { available: boolean }
-export type SignUpInfo = {
+import { Endpoints } from "../Endpoints";
+
+
+type UsernameResponse = { available: boolean }
+export type SignUpCredentials = {
     username: string,
     password: string,
     passwordConfirmation: string
 }
-type SIgnUpResponse = { username: string }
+export type SignInCredentials = {
+    username: string,
+    password: string
+}
+type SignInResponse = { username: string }
 type SignedInResponse = {
     authenticated: boolean,
     username: string
@@ -17,32 +24,56 @@ type SignedInResponse = {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-    private rootUrl = 'https://api.angular-email.com/auth/'
-    private signupUrl = this.rootUrl + 'signup'
-    private signinUrl = this.rootUrl + 'signin'
-    private signoutUrl = this.rootUrl + 'signout'
-    private checkUsernameUrl = this.rootUrl + 'username'
-    private checkSignedUrl = this.rootUrl + 'signedin'
-
-    signedIn$ = new BehaviorSubject(false)
+    signedIn$ = new BehaviorSubject<boolean | null>(null)
+    loading$ = new BehaviorSubject<boolean>(false)
+    username =  ''
 
     constructor (private http: HttpClient) {}
 
     usernameInUse (username: string) {
-        return this.http.post<UsernameInUseResponse>(this.checkUsernameUrl, { username })
+        return this.http.post<UsernameResponse>(Endpoints.checkUsername, { username })
     }
 
-    signUp (user: SignUpInfo) {
-        return this.http.post<SIgnUpResponse>(this.signupUrl, user)
+    signUp (user: SignUpCredentials) {
+        this.loading$.next(true)
+        return this.http.post<SignInResponse>(Endpoints.signup, user)
             .pipe(
-                tap(() => this.signedIn$.next(true))
+                tap((response) => {
+                    this.signedIn$.next(true)
+                    this.username = response.username
+                })
+            )
+    }
+
+    signIn (user: SignInCredentials) {
+        this.loading$.next(true)
+        return this.http.post<SignInResponse>(Endpoints.signin, user)
+            .pipe(
+                tap((response) => {
+                    this.signedIn$.next(true)
+                    this.username = response.username
+                })
+            )
+    }
+
+    signOut() {
+        this.loading$.next(true)
+        return this.http.post(Endpoints.signout, {})
+            .pipe(
+                tap(() => {
+                    this.signedIn$.next(false)
+                    this.username = ''
+                })
             )
     }
 
     checkSigned() {
-        return this.http.get<SignedInResponse>(this.checkSignedUrl,)
+        return this.http.get<SignedInResponse>(Endpoints.checkSigned)
             .pipe(
-                tap(({ authenticated }) => this.signedIn$.next(authenticated))
+                tap(({ authenticated, username }) => {
+                    this.signedIn$.next(authenticated)
+                    this.username = username
+                })
             )
     }
 

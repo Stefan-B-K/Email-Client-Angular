@@ -10,6 +10,7 @@ export class InputComponent {
     @Input() label = ''
     @Input() control!: FormControl
     @Input() type = ''
+    @Input() rows = ''
 
    get showErrors () {
         const { touched, dirty, errors } = this.control

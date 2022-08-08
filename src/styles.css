@@ -1,1 +1,10 @@
 @import "~semantic-ui-css/semantic.css";
+
+table{
+    table-layout: fixed;
+    width: 100%;
+}
+table td {
+    width: 95%;
+    word-wrap: break-word;
+}

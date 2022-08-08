@@ -1,1 +1,48 @@
-<p>sign-in works!</p>
+<div class="ui segment">
+    <h3 class="title">Sign In</h3>
+    <app-spinner *ngIf="loading$.value"></app-spinner>
+
+    <form
+        [formGroup]="signInForm"
+        (ngSubmit)="signIn()"
+        class="ui form">
+
+        <app-input
+            label="Username"
+            [control]="signInForm.controls.username"
+            type="text"
+        ></app-input>
+
+        <app-input
+            label="Password"
+            [control]="signInForm.controls.password"
+            type="password"
+        ></app-input>
+
+        <div *ngIf="signInForm.controls.password.touched && signInForm.errors"
+             class="ui red basic label"
+        >
+            <p *ngIf="signInForm.errors['invalidCredentials']">
+                Incorrect username / password!
+            </p>
+
+            <p *ngIf="signInForm.errors['noConnection']">
+                No internet connection, failed to sign in!
+            </p>
+
+            <p *ngIf="signInForm.errors['serverError']">
+                Server error, failed to sign in!
+            </p>
+        </div>
+
+
+        <button
+            [ngClass]="{ disabled: signInForm.invalid}"
+            class="ui submit button green"
+        >Sign In
+        </button>
+
+
+    </form>
+</div>
+

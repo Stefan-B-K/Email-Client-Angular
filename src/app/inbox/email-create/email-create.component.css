@@ -1,0 +1,6 @@
+app-spinner {
+    position: absolute;
+    bottom: -5px;
+    left: 45%;
+    transform: scale(0.6);
+}

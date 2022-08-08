@@ -1,0 +1,23 @@
+<div class="ui segment">
+    <div *ngIf="loading$.value; else ngElse" class="ui icon header">
+        <i class="mail icon outline"></i>
+        <app-spinner></app-spinner>
+    </div>
+    <ng-template #ngElse>
+        <div class="ui grid stackable">
+
+            <div class="twelve wide column"><h3>{{ email.subject }}</h3>
+                <div>From: <i>{{ email.from }}</i></div>
+                <div>To: <i>{{ email.to }}</i></div>
+            </div>
+
+            <div class="four wide column right">
+                <app-email-create *ngIf="newEmailConfig.replyTo"
+                    [newEmailConfig]="newEmailConfig"></app-email-create>
+            </div>
+
+        </div>
+        <div class="ui divider"></div>
+        <div [innerHTML]="email.html ?? email.text" class="content"></div>
+    </ng-template>
+</div>

@@ -1,0 +1,17 @@
+<button
+    (click)="showModal= true"
+    class="ui button green"
+>{{ newEmailConfig.buttonCaption }}
+</button>
+
+<app-modal
+    [config]="modalConfig"
+    (dismiss)="showModal = false"
+    *ngIf="showModal"
+>
+    <app-spinner *ngIf="loading$.value"></app-spinner>
+    <app-email-form
+        [from]="from"
+        [email]="email"
+        (sendEmail)="sendEmail($event)"></app-email-form>
+</app-modal>

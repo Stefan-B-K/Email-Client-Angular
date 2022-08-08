@@ -1,5 +1,6 @@
 <div class="ui segment">
     <h3 class="title">Create an Account</h3>
+    <app-spinner *ngIf="loading$.value"></app-spinner>
 
     <form
         [formGroup]="signUpForm"
@@ -44,7 +45,7 @@
 
         <button
             [ngClass]="{ disabled: signUpForm.invalid}"
-            class="ui submit button primary"
+            class="ui submit button green"
         >Submit</button>
 
     </form>

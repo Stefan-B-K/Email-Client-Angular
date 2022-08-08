@@ -11,12 +11,6 @@ export class HttpCookieInterceptor implements HttpInterceptor {
     ): Observable<HttpEvent<any>> {
         const modifiedReq = req.clone({ withCredentials: true })
         return next.handle(modifiedReq)
-            // .pipe(
-            //     tap(value => {
-            //         if (value.type === HttpEventType.Sent) {}
-            //         if (value.type === HttpEventType.Response) {}
-            //     }
-            // )
     }
 
 }

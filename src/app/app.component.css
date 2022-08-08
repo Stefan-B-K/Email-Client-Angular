@@ -1,0 +1,11 @@
+.ui.secondary.pointing.menu .active.item:hover {
+    border-color: #007800;
+    color: rgba(0, 0, 0, 0.95);
+}
+
+app-spinner {
+    position: absolute;
+    top: 50px;
+    left: 45%;
+    transform: scale(1.5);
+}

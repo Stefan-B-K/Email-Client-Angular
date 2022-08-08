@@ -1,0 +1,33 @@
+.dimmer {
+    background: rgba(107, 107, 107, 0.8);
+}
+
+.animate-fade {
+    animation: fade-in 0.3s ease-out forwards;
+}
+
+.animate-slide {
+    animation: slide-in 0.3s ease-out forwards;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(-50px) scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}

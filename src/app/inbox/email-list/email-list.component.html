@@ -1,0 +1,30 @@
+<div class="ui divided list">
+    <div class="title">
+        <div class="ui header">Inbox</div>
+        <app-email-create [newEmailConfig]="newEmailConfig"></app-email-create>
+    </div>
+    <ng-container *ngIf="emails.length; else ngElse">
+        <div *ngFor="let email of emails" class="item">
+            <a
+                [routerLink]=" './' + email.id"
+                [routerLinkActiveOptions]="{ exact: true }"
+                routerLinkActive="active"
+            >
+                <div class="content">
+                    <p class="trim bold">{{ email.subject }}</p>
+                    <p class="trim">{{ email.from }}</p>
+                </div>
+            </a>
+        </div>
+    </ng-container>
+    <ng-template #ngElse>
+        <div *ngIf="loading$.value; else ngElse" class="spinner item">
+            <app-spinner></app-spinner>
+        </div>
+        <ng-template #ngElse>
+            <div class="item active">Your inbox is empty</div>
+        </ng-template>
+    </ng-template>
+</div>
+
+

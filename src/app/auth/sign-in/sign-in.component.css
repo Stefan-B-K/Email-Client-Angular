@@ -1,0 +1,24 @@
+.basic.label,
+.button {
+    margin: 5px auto;
+}
+
+.button {
+    display: block;
+    margin-left: 0;
+}
+
+.ui.segment {
+    margin: 20px;
+}
+
+.title {
+    color: #006400;
+}
+
+app-spinner {
+    position: absolute;
+    bottom: -5px;
+    left: 45%;
+    transform: scale(0.7);
+}

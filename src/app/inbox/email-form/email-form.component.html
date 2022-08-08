@@ -1,0 +1,24 @@
+<form
+    [formGroup]="emailForm"
+    (ngSubmit)="submit()"
+    id="form"
+    class="ui form">
+    <app-input label="To"
+               [control]="emailForm.controls.to"
+               type="email"
+    ></app-input>
+    <app-input label="From"
+               [control]="emailForm.controls.from"
+               type="email"
+    ></app-input>
+    <app-input label="Subject"
+               [control]="emailForm.controls.subject"
+               type="text"
+    ></app-input>
+    <app-input label="Content"
+               [control]="emailForm.controls.text"
+               type="textarea"
+               rows="5"
+    ></app-input>
+    <button  class="ui button green">Send</button>
+</form>

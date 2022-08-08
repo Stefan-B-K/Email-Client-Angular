@@ -1,0 +1,24 @@
+.icon.outline {
+    color: #007800;
+}
+
+.ui.icon {
+    display: flex;
+    justify-items: center;
+    flex-direction: column;
+}
+
+app-spinner {
+    transform: scale(0.7);
+    margin-bottom: 0;
+}
+
+.spinner {
+    height: 70px;
+}
+
+app-email-create {
+    margin-right: 5px;
+}
+
+

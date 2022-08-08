@@ -1,4 +1,9 @@
 export enum Pages {
-  signIn = '',
-  signUp = 'signup'
+    root = '',
+    signIn = 'signin',
+    signUp = 'signup',
+    signOut = 'signout',
+    inbox = 'inbox',
+    email = 'ID',
+    emailNotFound = 'not-found'
 }

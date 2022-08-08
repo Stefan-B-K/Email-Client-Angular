@@ -1,0 +1,7 @@
+<div class="ui placeholder segment header">
+    <i class="mail icon outline"></i>
+        <app-spinner *ngIf="loading$.value; else ngElse"></app-spinner>
+        <ng-template #ngElse>
+            <p class="info">Select an email to show</p>
+        </ng-template>
+</div>
